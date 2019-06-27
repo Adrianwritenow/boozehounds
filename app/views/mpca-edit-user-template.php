@@ -10,7 +10,9 @@
     <?php
     foreach ($subscriptions as $sub) :
       $i = uniqid();
-      $product = $sub->product();
+      // $product = $sub->product();
+
+
       ?>
     <table class="form-table">
       <input type="hidden" name="mpca[<?php echo $i ?>][obj_type]"
@@ -21,9 +23,7 @@
         <th><?php _e('Dog Account?', 'memberpress-corporate'); ?></th>
         <td>
           <label>
-            <input type="checkbox" id="" class="mepr-toggle-checkbox"
-              data-box="mepr_corporate_options_box_<?php echo $i; ?>" name="mpca[<?php echo $i ?>][is_corporate]"
-              <?php checked($sub->is_corporate_account); ?> /> <?php echo $helper->subscription_header_html($sub); ?>
+            <?php echo $helper->subscription_header_html($sub); ?>
           </label>
         </td>
       </tr>
@@ -35,8 +35,7 @@
         <tr id="mpca-sub-account-limit-row">
           <th id='myheading'><?php _e('Number of Dog Accounts', 'memberpress-corporate'); ?></th>
           <td>
-            <input id="mpca-num-sub-account" type="number" name="mpca[<?php echo $i; ?>][num_sub_accounts]" min="0"
-              value=<?php echo $sub->num_sub_accounts ?> />
+            <label for="num_of_dogs"><?php echo count($sub->dog_accounts) ?></label>
           </td>
         </tr>
         <?php

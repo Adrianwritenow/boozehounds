@@ -299,7 +299,7 @@ class MPCA_Account_Controller
     if (!empty($ca) && isset($ca->id) && !empty($ca->id)) {
       ?>
 <!-- <a href="<?php echo $ca->sub_account_management_url(); ?>"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    class="mepr-account-row-action mepr-account-manage-sub-accounts"><?php _e('Sub Accounts', 'memberpress-corporate'); ?></a> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        class="mepr-account-row-action mepr-account-manage-sub-accounts"><?php _e('Sub Accounts', 'memberpress-corporate'); ?></a> -->
 <a href="<?php echo $ca->sub_account_management_url(); ?>"
   class="mepr-account-row-action mepr-account-manage-sub-accounts"><?php _e('Dog Accounts', 'memberpress-corporate'); ?></a>
 <?php

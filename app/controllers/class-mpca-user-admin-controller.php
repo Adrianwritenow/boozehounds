@@ -20,6 +20,8 @@ class MPCA_User_Admin_Controller
   public function display_fields($user)
   {
     // Instantiate helper for use in view template
+    global $wpdb;
+
     $helper = new MPCA_Admin_Helper();
 
     // Setup view template variables
@@ -27,30 +29,16 @@ class MPCA_User_Admin_Controller
     $meta_limit = get_user_meta($user->ID, 'mpca_member_sub_account_limit', true);
     $meta_parent_id = get_user_meta($user->ID, 'mpca_member_parent_id', true);
 
+    $subscriptions = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}mepr_transactions WHERE `user_id` = {$user->ID} AND (`status` = 'pending' OR `status` = 'complete')");
+
     // Get a list of the user's subscriptions
-    $subscriptions = $user->subscriptions();
-    foreach ($subscriptions as $subscription) {
-      $subscription->dog_accounts = $this->get_user_dog_accounts($subscription->corporate_account->id);
+    // $subscriptions = $user->subscriptions();
+    foreach ((object)$subscriptions as $subscription) {
+      $subscription->dog_accounts = $this->get_user_dog_accounts($subscription->corporate_account_id);
+      $subscription->corporate_account = $this->get_user_corporate_account($subscription->corporate_account_id);
     }
 
     require MPCA_VIEWS_PATH . '/mpca-edit-user-template.php';
-  }
-
-  public function edit_dog_account($action)
-  {
-    if ($action == 'edit_dog_account') {
-
-      // Edit the dog account
-      $user_id = $ca->user_id;
-      $userdata = $_REQUEST['userdata'];
-      $dogPhotosTmpDir = $_FILES["userdata"]["tmp_name"]["photo"];
-      $dogPhotosDir = wp_upload_dir()["basedir"] . "/dogs/photos/";
-      $dogVaccinationsTmpDir = $_FILES["userdata"]["tmp_name"]["vaccination"];
-      $dogVaccinationsDir = wp_upload_dir()["basedir"] . "/dogs/vaccinations/";
-      $photo = $user_id . "-" . uniqid() . ".png";
-      $vaccination = $user_id . "-" . uniqid() . ".png";
-    }
-    if ($action == 'remove_dog_account') { }
   }
 
   public function save_user($user)
@@ -89,6 +77,12 @@ class MPCA_User_Admin_Controller
   {
     global $wpdb;
     $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}mepr_dog_accounts WHERE ca_id = {$corporate_id}");
+    return $results;
+  }
+  public function get_user_corporate_account($corporate_id)
+  {
+    global $wpdb;
+    $results = $wpdb->get_row("SELECT * FROM {$wpdb->prefix}mepr_corporate_accounts WHERE id = {$corporate_id}");
     return $results;
   }
 }

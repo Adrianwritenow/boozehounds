@@ -1,4 +1,6 @@
-<?php if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');}
+<?php if (!defined('ABSPATH')) {
+  die('You are not allowed to call this page directly.');
+}
 
 /*
  * Instantiate the helper in your controller and call its functions from the
@@ -11,48 +13,51 @@
  *
  *   // view template
  *   <?php echo $helper->subscription_header_html($p, $s) ?>
- */
-class MPCA_Admin_Helper {
-  public function subscription_header_html($sub) {
-    $html = '';
-    $product = $sub->product();
-    $sub_id = __('Unknown', 'memberpress-corporate');
+*/
+class MPCA_Admin_Helper
+{
+public function subscription_header_html($sub)
+{
+$html = '';
+// $product = $sub->product();
+$sub_id = __("{$sub->id}", 'memberpress-corporate');
 
-    if($sub instanceof MeprTransaction) {
-      $sub_id = $sub->trans_num;
-    }
-    else if($sub instanceof MeprSubscription) {
-      $sub_id = $sub->subscr_id;
-    }
+if ($sub instanceof MeprTransaction) {
+$sub_id = $sub->trans_num;
+} else if ($sub instanceof MeprSubscription) {
+$sub_id = $sub->subscr_id;
+}
 
-    $status = $this->subscription_status($sub);
-    $html .= "{$product->post_title} (ID: {$sub_id}, Status: {$status})";
+// $status = $this->subscription_status($sub);
+$html .= "{$product->post_title} (ID: {$sub_id}, Status: {$sub->status})";
 
-    return $html;
-  }
+return $html;
+}
 
-  public function member_type_html($options, $selected_value) {
-    ob_start();
-    ?>
-    <select id="mpca-member-type" name="mpca_member_type">
+public function member_type_html($options, $selected_value)
+{
+ob_start();
+?>
+<select id="mpca-member-type" name="mpca_member_type">
 
-    <?php
-    foreach($options as $text => $value):
+  <?php
+    foreach ($options as $text => $value) :
       ?>
-      <option value="<?php echo $value; ?>" <?php selected($selected_value, $value); ?>><?php echo $text; ?></option>
-      <?php
-    endforeach;
-    ?>
+  <option value="<?php echo $value; ?>" <?php selected($selected_value, $value); ?>><?php echo $text; ?></option>
+  <?php
+  endforeach;
+  ?>
 
-    </select>
-    <?php
+</select>
+<?php
 
-    return ob_get_clean();
-  }
+  return ob_get_clean();
+}
 
-  /* Private functions */
+/* Private functions */
 
-  private function subscription_status($sub) {
-    return (($sub->is_active()) ? __('Active', 'memberpress-corporate') : __('Inactive', 'memberpress-corporate'));
-  }
+private function subscription_status($sub)
+{
+  return (($sub->is_active()) ? __('Active', 'memberpress-corporate') : __('Inactive', 'memberpress-corporate'));
+}
 }
