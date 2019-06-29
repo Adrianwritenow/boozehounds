@@ -29,11 +29,11 @@ class MPCA_User_Admin_Controller
     $meta_limit = get_user_meta($user->ID, 'mpca_member_sub_account_limit', true);
     $meta_parent_id = get_user_meta($user->ID, 'mpca_member_parent_id', true);
 
-    $subscriptions = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}mepr_transactions WHERE `user_id` = {$user->ID} AND (`status` = 'pending' OR `status` = 'complete')");
+    $subscriptions = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}mepr_transactions WHERE `user_id` = {$user->ID} AND (`status` = 'pending' OR `status` = 'complete' OR `status` = 'confirmed')");
 
     // Get a list of the user's subscriptions
     // $subscriptions = $user->subscriptions();
-    foreach ((object)$subscriptions as $subscription) {
+    foreach ((object) $subscriptions as $subscription) {
       $subscription->dog_accounts = $this->get_user_dog_accounts($subscription->corporate_account_id);
       $subscription->corporate_account = $this->get_user_corporate_account($subscription->corporate_account_id);
     }

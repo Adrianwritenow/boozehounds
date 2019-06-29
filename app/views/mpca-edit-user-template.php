@@ -65,8 +65,8 @@
           </td>
         </tr>
         <?php
-        }
-        ?>
+          }
+          ?>
       </table>
       <div class="edit-container"></div>
     </div>
