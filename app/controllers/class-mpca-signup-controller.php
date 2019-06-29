@@ -39,6 +39,9 @@ class MPCA_Signup_Controller
     $trans_id = $transaction->id;
     $trans = $wpdb->get_row("SELECT * FROM {$wpdb->prefix}mepr_transactions WHERE id = {$trans_id}");
     $ca = $wpdb->get_row("SELECT * FROM {$wpdb->prefix}mepr_corporate_accounts WHERE id = {$trans->corporate_account_id}");
+    if ($trans->subscription_id > 0) {
+      $ca = $wpdb->get_row("SELECT * FROM {$wpdb->prefix}mepr_corporate_accounts WHERE obj_id = {$trans->subscription_id}");
+    }
     $dog_accounts = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}mepr_dog_accounts WHERE user_id = {$user_id} AND ca_id = {$ca->id}");
     $url = $transaction->checkout_url();
 
