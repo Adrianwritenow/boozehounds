@@ -1,15 +1,11 @@
 // IIFE
-
-
-
 (function($, window, document) {
   
   // $ is now locally scoped and available
   
   $(function() {
-    console.log('This is loading !!');
     
-    let dogForm = $('#mpca-add-sub-user-form'),
+    let dogForm = $('#mpca-add-dog-form'),
         formUrl = dogForm.attr('action'),
         checkoutButton = $('#dog-checkout a'),
         dogSubmitButton = dogForm.find('input[type=submit]'),

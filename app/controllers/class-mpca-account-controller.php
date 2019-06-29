@@ -167,8 +167,7 @@ class MPCA_Account_Controller
         $errors = array();
         $message = '';
         if ($_REQUEST['manage_dog_accounts_form'] == 'add') {
-          // $r = $this->add_dog_account_user($ca);
-          return json_encode([$_POST, $_REQUEST]);
+          $r = $this->add_dog_account_user($ca);
         }
         extract($r); // errors and messages
       }
@@ -241,7 +240,7 @@ class MPCA_Account_Controller
       $total_sub_accounts = $res['count'];
 
       $total_pages = max(($total_sub_accounts / $perpage), 1);
-      $total_pages = (is_int($total_pages) ? $total_pages : (((int)$total_pages) + 1));
+      $total_pages = (is_int($total_pages) ? $total_pages : (((int) $total_pages) + 1));
 
       $prev_page = (($currpage > 1) ? ($currpage - 1) : false);
       $next_page = (($currpage < $total_pages) ? ($currpage + 1) : false);
@@ -299,11 +298,11 @@ class MPCA_Account_Controller
     if (!empty($ca) && isset($ca->id) && !empty($ca->id)) {
       ?>
 <!-- <a href="<?php echo $ca->sub_account_management_url(); ?>"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        class="mepr-account-row-action mepr-account-manage-sub-accounts"><?php _e('Sub Accounts', 'memberpress-corporate'); ?></a> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                class="mepr-account-row-action mepr-account-manage-sub-accounts"><?php _e('Sub Accounts', 'memberpress-corporate'); ?></a> -->
 <a href="<?php echo $ca->sub_account_management_url(); ?>"
   class="mepr-account-row-action mepr-account-manage-sub-accounts"><?php _e('Dog Accounts', 'memberpress-corporate'); ?></a>
 <?php
-}
+  }
 }
 
 public function add_dog_account_links($user, $row, $transaction, $issub)
@@ -325,7 +324,7 @@ public function add_dog_account_links($user, $row, $transaction, $issub)
   <button><a href="<?php echo get_permalink($membership_addon_post_id) ?>"><?php _e('Add Dogs') ?></a></button>
 </div>
 <?php
-}
+  }
 }
 
 private function validate_import()
@@ -420,7 +419,6 @@ public function add_checkout_fields()
 
 public function add_dog_account_user($ca)
 {
-  return [$ca, $_POST];
   $mepr_options = MeprOptions::fetch();
   $errors = array();
   $message = '';

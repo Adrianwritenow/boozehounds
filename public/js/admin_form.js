@@ -3,12 +3,9 @@
   // $ is now locally scoped and available
 
   $(function() {
-
-    console.log('Jquery is available');
     
     $(document).ready(function() {
       
-      console.log('The Dom is ready');
       let currentValues = undefined
 
       // vaccination record on click
@@ -39,7 +36,7 @@
         e.preventDefault()
         let dogId = $(e.currentTarget).closest('tr').data('dogId'),
             url = $(e.currentTarget).closest('tr').data('editUrl')
-        console.log('Save');
+  
         saveDogEdit(url, currentValues)
       })
 
@@ -57,7 +54,6 @@
           url: url,
           type: "GET"
         }).then(res => {
-          console.log(res);
           window.location.reload() 
         })
       })
@@ -86,7 +82,6 @@
           contentType: false,
           data: formData
         }).then(res => {
-          console.log(res);
           window.location.reload()
         })        
       }

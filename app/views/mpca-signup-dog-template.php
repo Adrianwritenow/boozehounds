@@ -19,7 +19,7 @@
       ?>
 
       <form action="<?php echo admin_url("admin-ajax.php?action=add_dog_account&ca={$ca->id}&user_id={$user_id}") ?>"
-        method="post" id="mpca-add-sub-user-form" class="mpca-hidden" enctype="multipart/form-data">
+        method="post" id="mpca-add-dog-form" class="mpca-hidden" enctype="multipart/form-data">
 
         <label>
           <span><?php _e('Photo', 'memberpress-corporate'); ?></span>

@@ -12,9 +12,6 @@
     //Init all the suggest autocomplete fields
     $(document).ready(function() {
 
-      console.log('Readyyyyyyyyyy!!!!!!');
-      
-
       mpca_setup_clipboardjs();
 
       $('.mepr_suggest_user').suggest(
